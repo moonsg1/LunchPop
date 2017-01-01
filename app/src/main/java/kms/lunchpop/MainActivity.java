@@ -87,14 +87,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         Fragment fragment = null;
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_pop) {
             fragment = new PopFragment();
-        } else if (id == R.id.nav_gallery) {
-            fragment = new EditFragment();
-        } else if (id == R.id.nav_slideshow) {
-
         } else if (id == R.id.nav_manage) {
-
+            fragment = new EditFragment();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

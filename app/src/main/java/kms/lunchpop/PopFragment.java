@@ -20,7 +20,7 @@ public class PopFragment extends Fragment {
     }
 
     String[] pop_str = {"떡복이", "치킨", "피자", "자장면"};
-    View mView;
+    private View mView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class PopFragment extends Fragment {
 
 
     // pop button listener
-    public Button.OnClickListener clickPopButton() {
+    private Button.OnClickListener clickPopButton() {
         return new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +52,7 @@ public class PopFragment extends Fragment {
     }
 
     // reset button listener
-    public Button.OnClickListener clickResetButton() {
+    private Button.OnClickListener clickResetButton() {
         return new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
