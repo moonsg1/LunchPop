@@ -13,6 +13,13 @@
     tools:context="kms.lunchpop.MainActivity"
     >
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/kkami2"
+        android:id="@+id/pop_image_view"
+        android:layout_centerVertical="true"/>
+
     <Button
         android:text="POP"
         android:layout_width="wrap_content"
@@ -36,7 +43,8 @@
         android:text="LUNCH POP!"
         android:textSize="30sp"
         android:id="@+id/pop_text"
-        android:layout_centerVertical="true"
+        android:layout_marginBottom="40sp"
+        android:layout_above="@+id/pop_button"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

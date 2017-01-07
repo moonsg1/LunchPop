@@ -69,8 +69,8 @@ public class LunchAdapter extends BaseAdapter {
     }
 
     // 외부에서 아이템 추가 요청 시 사용
-    public void add(String _msg) {
-        m_List.add(_msg);
+    public void add(LunchData lunch_data) {
+        m_List.add(lunch_data.getLunch());
     }
 
     // 외부에서 아이템 삭제 요청 시 사용

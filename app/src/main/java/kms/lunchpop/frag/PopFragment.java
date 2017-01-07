@@ -1,10 +1,10 @@
-package kms.lunchpop;
+package kms.lunchpop.frag;
 
 /**
  * Created by KMS_DESKTOP on 2016-12-25.
  */
+import android.app.Activity;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +14,21 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class PopFragment extends Fragment {
+import kms.lunchpop.LunchData;
+import kms.lunchpop.PreferenceHelper;
+import kms.lunchpop.R;
+
+public class PopFragment extends LunchFragment {
     public PopFragment() {
         // Required empty public constructor
     }
 
-    String[] pop_str = {"떡복이", "치킨", "피자", "자장면"};
-    private View mView;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_pop_view, container, false);
+
+        // preference 등록
+        this.mPrefHelper = new PreferenceHelper(getActivity());
 
         // pop button listener 등록
         Button pop_button = (Button) mView.findViewById(R.id.pop_button) ;
@@ -44,9 +48,11 @@ public class PopFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 TextView textView1 = (TextView) mView.findViewById(R.id.pop_text);
-                Random random = new Random();
-                int i = random.nextInt(3);
-                textView1.setText(pop_str[i]) ;
+                LunchData pop_data = getNextPopLunch();
+                if (pop_data == null) {
+                }else{
+                    textView1.setText(pop_data.getLunch()) ;
+                }
             }
         };
     }
@@ -59,6 +65,22 @@ public class PopFragment extends Fragment {
 
             }
         };
+    }
+
+    // pop data를 가져온다.
+    private LunchData getNextPopLunch() {
+        int size = mPrefHelper.getSize() - 1;
+        if (size <= 0) {
+            return null;
+        }
+        // random 0 ~ 파라미터 - 1 return
+        Random random = new Random();
+        int idx = random.nextInt(size) + 1;
+
+        String num_str = String.valueOf(idx);
+        LunchData lunch_data = mPrefHelper.readLunchData(num_str);
+
+        return lunch_data;
     }
 
 }
