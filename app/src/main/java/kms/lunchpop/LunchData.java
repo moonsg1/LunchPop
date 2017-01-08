@@ -5,22 +5,30 @@ package kms.lunchpop;
  */
 
 public class LunchData {
-    private String m_lunch;
-
+    private String mLunch;
+    private String mKey;
 
     public LunchData(String lunch) {
-        this.m_lunch = lunch;
+        this.mLunch = lunch;
     }
 
     public String toString() {
-        return "lunch: " + m_lunch;
+        return "lunch: " + mLunch + "\nkey: " + mKey;
     }
 
     public String getLunch() {
-        return m_lunch;
+        return mLunch;
     }
 
     public void setLunch(String lunch) {
-        this.m_lunch = lunch;
+        this.mLunch = lunch;
+    }
+
+    public String getKey() {
+        return mKey;
+    }
+
+    public void setKey(String mKey) {
+        this.mKey = mKey;
     }
 }

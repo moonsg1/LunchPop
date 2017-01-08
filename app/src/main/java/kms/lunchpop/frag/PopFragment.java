@@ -1,9 +1,9 @@
-package kms.lunchpop.frag;
-
 /**
  * Created by KMS_DESKTOP on 2016-12-25.
  */
-import android.app.Activity;
+
+package kms.lunchpop.frag;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +15,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import kms.lunchpop.LunchData;
-import kms.lunchpop.PreferenceHelper;
+import kms.lunchpop.PreferenceMgr;
 import kms.lunchpop.R;
 
 public class PopFragment extends LunchFragment {
+    private ArrayList<LunchData> mLunchDataList;
+
     public PopFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -28,7 +29,8 @@ public class PopFragment extends LunchFragment {
         mView = inflater.inflate(R.layout.fragment_pop_view, container, false);
 
         // preference 등록
-        this.mPrefHelper = new PreferenceHelper(getActivity());
+        this.mPrefMgr = PreferenceMgr.getInstance();
+        mLunchDataList = mPrefMgr.getDataList();
 
         // pop button listener 등록
         Button pop_button = (Button) mView.findViewById(R.id.pop_button) ;
@@ -41,7 +43,6 @@ public class PopFragment extends LunchFragment {
         return mView;
     }
 
-
     // pop button listener
     private Button.OnClickListener clickPopButton() {
         return new Button.OnClickListener() {
@@ -50,6 +51,7 @@ public class PopFragment extends LunchFragment {
                 TextView textView1 = (TextView) mView.findViewById(R.id.pop_text);
                 LunchData pop_data = getNextPopLunch();
                 if (pop_data == null) {
+                    showToast("다시 시도해주세요!");
                 }else{
                     textView1.setText(pop_data.getLunch()) ;
                 }
@@ -62,25 +64,26 @@ public class PopFragment extends LunchFragment {
         return new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showToast("개발중이에요");
             }
         };
     }
 
     // pop data를 가져온다.
     private LunchData getNextPopLunch() {
-        int size = mPrefHelper.getSize() - 1;
+        int size = mLunchDataList.size();
         if (size <= 0) {
-            return null;
+            return new LunchData("등록한 메뉴가 없어요!");
         }
-        // random 0 ~ 파라미터 - 1 return
+
         Random random = new Random();
-        int idx = random.nextInt(size) + 1;
+        int idx = random.nextInt(size); // random : 0 ~ 파라미터 - 1
 
-        String num_str = String.valueOf(idx);
-        LunchData lunch_data = mPrefHelper.readLunchData(num_str);
+        return mLunchDataList.get(idx);
+    }
 
-        return lunch_data;
+    public void clearDataList() {
+        this.mLunchDataList.clear();
     }
 
 }

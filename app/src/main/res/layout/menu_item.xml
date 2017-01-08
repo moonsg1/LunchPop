@@ -10,7 +10,7 @@
         android:text="menu item"
         android:layout_width="wrap_content"
         android:gravity="center_vertical|center_horizontal"
-            android:layout_marginLeft="@dimen/fab_margin" />
+        android:layout_marginLeft="@dimen/fab_margin" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -20,14 +20,15 @@
             android:layout_alignParentEnd="true">
 
             <Button
-                android:text="Edit"
+                android:text="@string/edit_upper_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/menu_item_edit_btn"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:visibility="invisible" />
 
             <Button
-                android:text="Delete"
+                android:text="@string/delete_upper_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/menu_item_delete_btn"
