@@ -5,12 +5,12 @@
         android:layout_height="50sp">
 
         <TextView
-        android:layout_height="match_parent"
-        android:id="@+id/menu_text"
-        android:text="menu item"
-        android:layout_width="wrap_content"
-        android:gravity="center_vertical|center_horizontal"
-        android:layout_marginLeft="@dimen/fab_margin" />
+            android:layout_height="match_parent"
+            android:id="@+id/menu_text"
+            android:text="menu item"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginLeft="@dimen/fab_margin" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/menu_item_edit_btn"
                 android:layout_weight="1"
-                android:visibility="invisible" />
+                android:visibility="visible" />
 
             <Button
                 android:text="@string/delete_upper_text"

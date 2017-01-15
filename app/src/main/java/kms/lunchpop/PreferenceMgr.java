@@ -62,6 +62,20 @@ public class PreferenceMgr {
         return data;
     }
 
+    // LunchData를 preference에 저장한다.
+    public void editLunchData(String key, LunchData lunch_data) {
+        SharedPreferences.Editor prefsEditor = mPreference.edit();
+        Gson gson = new Gson();
+
+        // lunch data 객체를 json형식으로 저장 (객체지만 일단... 데이터수준)
+        lunch_data.setKey(key);
+        String json = gson.toJson(lunch_data);
+
+        // 실제 저장
+        prefsEditor.putString(key, json);
+        prefsEditor.apply();
+    }
+
     // LunchData를 preference에서 삭제한다
     public void removeLunchData(String key) {
         SharedPreferences.Editor prefsEditor = mPreference.edit();

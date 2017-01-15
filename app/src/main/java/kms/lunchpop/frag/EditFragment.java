@@ -62,8 +62,8 @@ public class EditFragment extends LunchFragment {
         return new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // text 가져옴
                 String input_text = mEditText.getText().toString();
-
                 if (input_text.equals("")) {
                     showToast("공백은 추가 할 수 없어요~");
                     return;

@@ -1,5 +1,6 @@
 package kms.lunchpop;
 
+import android.view.Gravity;
 import android.widget.BaseAdapter;
 import java.util.ArrayList;
 import android.content.Context;
@@ -16,9 +17,12 @@ public class LunchAdapter extends BaseAdapter {
     // 문자열을 보관 할 ArrayList
     private ArrayList<LunchData> m_List;
     private PreferenceMgr mPrefHelper;
+    private EditPopupWindow mPopupWindow;
+    private LunchAdapter mAdapter;
 
     // 생성자
     public LunchAdapter() {
+        mAdapter = this;
         this.m_List = new ArrayList<>();
         this.mPrefHelper = PreferenceMgr.getInstance();
     }
@@ -51,7 +55,7 @@ public class LunchAdapter extends BaseAdapter {
         if ( convertView == null ) {
             // view가 null일 경우 커스텀 레이아웃을 얻어 옴
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.menu_item, parent, false);
+            convertView = inflater.inflate(R.layout.item_lunch, parent, false);
 
             // TextView에 현재 position의 문자열 추가
             TextView text = (TextView) convertView.findViewById(R.id.menu_text);
@@ -60,7 +64,7 @@ public class LunchAdapter extends BaseAdapter {
 
             // 버튼리스너 붙임
             Button edit_btn = (Button) convertView.findViewById(R.id.menu_item_edit_btn);
-            edit_btn.setOnClickListener(clickEditButton());
+            edit_btn.setOnClickListener(clickEditButton(position));
             Button delete_btn = (Button) convertView.findViewById(R.id.menu_item_delete_btn);
             delete_btn.setOnClickListener(clickDeleteButton(position));
         }
@@ -82,11 +86,19 @@ public class LunchAdapter extends BaseAdapter {
     }
 
     // edit button listener
-    private Button.OnClickListener clickEditButton() {
+    private Button.OnClickListener clickEditButton(final int position) {
         return new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // preference에서 삭제
+                LunchData lunch_data = (LunchData)getItem(position);
 
+                // 수정 팝업 생성
+                mPopupWindow = new EditPopupWindow(v, mAdapter, lunch_data);
+                // 애니메이션 설정(-1:설정, 0:설정안함)
+                mPopupWindow.setAnimationStyle(-1);
+                // 중앙에 위치 시킴
+                mPopupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
             }
         };
     }
