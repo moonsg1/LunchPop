@@ -16,7 +16,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/kkami3"
+        app:srcCompat="@drawable/kkami5"
         android:id="@+id/edit_image_view"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
@@ -47,7 +47,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/add_btn"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                style="@style/Widget.AppCompat.Button.Borderless" />
 
         </LinearLayout>
 

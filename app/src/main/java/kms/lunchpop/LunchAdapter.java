@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import kms.lunchpop.popup.EditPopupWindow;
+
 /**
  * Created by KMS_DESKTOP on 2017-01-01.
  */
@@ -48,11 +50,10 @@ public class LunchAdapter extends BaseAdapter {
     // 출력 될 아이템 관리
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final int pos = position;
         final Context context = parent.getContext();
 
         // 리스트가 길어지면서 현재 화면에 보이지 않는 아이템은 converView가 null인 상태로 들어 옴
-        if ( convertView == null ) {
+        //if ( convertView == null ) {
             // view가 null일 경우 커스텀 레이아웃을 얻어 옴
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.item_lunch, parent, false);
@@ -63,11 +64,16 @@ public class LunchAdapter extends BaseAdapter {
             text.setText(lunch);
 
             // 버튼리스너 붙임
-            Button edit_btn = (Button) convertView.findViewById(R.id.menu_item_edit_btn);
-            edit_btn.setOnClickListener(clickEditButton(position));
-            Button delete_btn = (Button) convertView.findViewById(R.id.menu_item_delete_btn);
-            delete_btn.setOnClickListener(clickDeleteButton(position));
-        }
+            {
+                Button edit_btn = (Button) convertView.findViewById(R.id.menu_item_edit_btn);
+                edit_btn.setTag(position);
+                edit_btn.setOnClickListener(mEditBtnListener);
+
+                Button delete_btn = (Button) convertView.findViewById(R.id.menu_item_delete_btn);
+                delete_btn.setTag(position);
+                delete_btn.setOnClickListener(mClickBtnListener);
+            }
+        //}
 
         return convertView;
     }
@@ -86,39 +92,42 @@ public class LunchAdapter extends BaseAdapter {
     }
 
     // edit button listener
-    private Button.OnClickListener clickEditButton(final int position) {
-        return new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // preference에서 삭제
-                LunchData lunch_data = (LunchData)getItem(position);
+    private Button.OnClickListener mEditBtnListener = new Button.OnClickListener()
+    {
+        @Override
+        public void onClick(View v) {
+            int position = (int) v.getTag();
 
-                // 수정 팝업 생성
-                mPopupWindow = new EditPopupWindow(v, mAdapter, lunch_data);
-                // 애니메이션 설정(-1:설정, 0:설정안함)
-                mPopupWindow.setAnimationStyle(-1);
-                // 중앙에 위치 시킴
-                mPopupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
-            }
-        };
-    }
+            // preference에서 삭제
+            LunchData lunch_data = (LunchData)getItem(position);
+
+            // 수정 팝업 생성
+            mPopupWindow = new EditPopupWindow(v, mAdapter, lunch_data);
+            // 애니메이션 설정(-1:설정, 0:설정안함)
+            mPopupWindow.setAnimationStyle(-1);
+            // 중앙에 위치 시킴
+            mPopupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+        }
+    };
 
     // delete button listener
-    private Button.OnClickListener clickDeleteButton(final int position) {
-        return new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // preference에서 삭제
-                LunchData lunch_data = (LunchData)getItem(position);
-                String key = lunch_data.getKey();
-                mPrefHelper.removeLunchData(key);
+    private Button.OnClickListener mClickBtnListener = new Button.OnClickListener()
+    {
+        @Override
+        public void onClick(View v) {
+            int position = (int) v.getTag();
 
-                // adapter list에서 삭제
-                remove(position);
+            // preference에서 삭제
+            LunchData lunch_data = (LunchData)getItem(position);
+            String key = lunch_data.getKey();
+            mPrefHelper.removeLunchData(key);
 
-                // adpater 갱신
-                notifyDataSetChanged();
-            }
-        };
-    }
+            // adapter list에서 삭제
+            remove(position);
+
+            // adpater 갱신
+            notifyDataSetChanged();
+        }
+    };
+
 }

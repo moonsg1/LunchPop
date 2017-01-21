@@ -16,7 +16,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class PreferenceMgr {
     private SharedPreferences mPreference;
-    private int mMaxDataSize = 30;
+    private int mMaxDataSize = 128;
 
     public static int STATE_EMPTY = 1024;
     public static int STATE_NO_LUNCH = 512;

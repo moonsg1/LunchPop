@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,6 +21,13 @@ import kms.lunchpop.R;
 
 public class PopFragment extends LunchFragment {
     private ArrayList<LunchData> mLunchDataList;
+    private final int mPngList[]= {
+            R.drawable.kkami1,
+            R.drawable.kkami2,
+            R.drawable.kkami3,
+            R.drawable.kkami4,
+            R.drawable.kkami5,
+    };
 
     public PopFragment() {
     }
@@ -32,12 +40,17 @@ public class PopFragment extends LunchFragment {
         this.mPrefMgr = PreferenceMgr.getInstance();
         mLunchDataList = mPrefMgr.getDataList();
 
+        // main image random set
+        ImageView image_view = (ImageView) mView.findViewById(R.id.pop_image_view);
+        Random random = new Random();
+        image_view.setImageResource(this.mPngList[random.nextInt(mPngList.length)]);
+
         // pop button listener 등록
-        Button pop_button = (Button) mView.findViewById(R.id.pop_button) ;
+        Button pop_button = (Button) mView.findViewById(R.id.pop_button);
         pop_button.setOnClickListener(clickPopButton());
 
         // reset button listener 등록
-        Button reset_button = (Button) mView.findViewById(R.id.reset_button) ;
+        Button reset_button = (Button) mView.findViewById(R.id.reset_button);
         reset_button.setOnClickListener(clickResetButton());
 
         return mView;

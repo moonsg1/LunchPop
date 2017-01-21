@@ -1,4 +1,4 @@
-package kms.lunchpop;
+package kms.lunchpop.popup;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
+
+import kms.lunchpop.LunchAdapter;
+import kms.lunchpop.LunchData;
+import kms.lunchpop.PreferenceMgr;
+import kms.lunchpop.R;
 
 /**
  * Created by KMS_DESKTOP on 2017-01-15.

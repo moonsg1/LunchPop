@@ -37,7 +37,8 @@
         android:id="@+id/pop_button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_width="200sp" />
+        android:layout_width="200sp"
+        style="@style/Widget.AppCompat.Button.Colored" />
 
     <Button
         android:text="@string/reset_upper_str"
